@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: nodemon index.js
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    ports:
+      - '9080:9080'
