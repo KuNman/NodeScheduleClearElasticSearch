@@ -1,12 +1,12 @@
 var format = require('date-format');
 var client = require('../helpers/esClient');
 
-const service =
-    class DeleteExpiredRentalOffers {
+class DeleteExpiredRentalOffers {
 
     constructor()
     {
         this.index = 'search_rental_offer_index';
+        this.array = [];
         this.body = {
             query: {
                 range: {
@@ -20,17 +20,24 @@ const service =
         };
     }
 
-    collectIds() {
+    find() {
         return client.search({index: this.index, body: this.body})
-            .then(results => {
-                results.hits.hits.forEach(function (value) {
-                    let idsArray = [];
-                    return idsArray.push(value._id);
-                })
+            .then(response => {
+                var that = this;
+                return response.hits.hits.map(value => that.array.push(value._id))
             })
-            .catch(console.error);
+            .catch(error =>
+                console.log(error.message)
+            )
+
+    }
+
+    remove() {
+        // this.array = [];
     }
 
 }
 
-module.exports = service;
+module.exports = {
+    DeleteExpiredRentalOffers,
+};
