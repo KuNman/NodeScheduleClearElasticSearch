@@ -1,14 +1,21 @@
 var client = require('./esClient');
 var bodybuilder = require('./esBodyBuilder');
+var schedule = require('node-schedule');
+
+schedule.scheduleJob('* * * * *', function(){
+    exports.ping();
+});
 
 exports.ping = function(req, res) {
     client.ping({
         requestTimeout: 30000,
     }, function(error) {
         if (error) {
-            return res.json('ES cluster is down!');
+            console.log('ES cluster is down!');
+            // return res.json('ES cluster is down!');
         } else {
-            return res.json('Everything is ok');
+            console.log('ES cluster is up!');
+            // return res.json('Everything is ok');
         }
     });
 }
