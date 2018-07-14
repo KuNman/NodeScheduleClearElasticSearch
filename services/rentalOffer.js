@@ -45,11 +45,11 @@ class DeleteExpiredRentalOffers {
                     }
                 }
                 return client.deleteByQuery({index: index, body: deleteBody})
-                    .then(response => {
-                        log.info('Usunięto oferty nieruchomości. ' + new Date().toJSON() + response);
-                    })
-                    .catch(error =>
-                        log.info('Błąd przy usuwaniu ofert nieruchomości. ' + new Date().toJSON() + error)
+                    .then(
+                        log.info('Usunięto oferty nieruchomości. ' + new Date().toJSON())
+                    )
+                    .catch(
+                        log.info('Błąd przy usuwaniu ofert nieruchomości. ' + new Date().toJSON())
                     )
             })
         } else {
