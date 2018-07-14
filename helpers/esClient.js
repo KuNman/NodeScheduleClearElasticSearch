@@ -1,6 +1,8 @@
-var elasticsearch = require('elasticsearch');
-var client = new elasticsearch.Client({
-    hosts: [ 'http://elastic:changeme@172.17.0.1:9200']
+const elasticsearch = require('elasticsearch');
+require('dotenv').config()
+
+const client = new elasticsearch.Client({
+    hosts: [ 'http://'+process.env.ES_USER+':'+process.env.ES_PASS+'@'+process.env.ES_HOST+':'+process.env.ES_PORT],
 });
 
 module.exports = client;
